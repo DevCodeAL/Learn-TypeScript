@@ -14,13 +14,13 @@ function myFunction(message) {
     console.log(message.toUpperCase());
 }
 ;
-// Example 3 function type
+// Example 4 function type
 var add;
 // add is variable assign to a function
 add = function (x, y) {
     return x + y;
 };
-// Example 4 Function Optional Types
+// Example 5 Function Optional Types
 function multiply(a, b, c) {
     if (typeof c !== 'undefined') {
         return a * b * c;
@@ -28,7 +28,7 @@ function multiply(a, b, c) {
     return a * b;
 }
 ;
-// Example 5 Default Parameters
+// Example 6 Default Parameters
 // Use default parameter syntax parameter:=defaultValue if you want to set the default initialized value for the parameter.
 // Default parameters are optional.
 // To use the default initialized value of a parameter, you omit the argument when calling the function or pass the undefined into the function.
@@ -65,3 +65,82 @@ function getDay(year, month) {
     }
     return day;
 }
+// Example 7 TypeScript Rest Parameters
+// Use rest parameters to allow a function to accept a variable number of arguments with the same or different types.
+// Use ...args type[] syntax to define rest parameters with the same type.
+// Use ...args (type1 | type2 ) [] syntax to define rest parameters with different types.
+// collect the all agruments then sum
+function getTotal() {
+    var numbers = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        numbers[_i] = arguments[_i];
+    }
+    var total = 0;
+    numbers.forEach(function (num) { return total += num; });
+    return total;
+}
+;
+console.log(getTotal()); // 0
+console.log(getTotal(10, 20)); // 30
+console.log(getTotal(10, 20, 30)); // 60
+// Rest parameters with multiple types 
+function combineItems() {
+    var args = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        args[_i] = arguments[_i];
+    }
+    var total = 0;
+    var str = '';
+    args.forEach(function (items) {
+        if (typeof items === 'number') {
+            total += items;
+        }
+        else if (typeof items === 'string') {
+            str += items;
+        }
+    });
+    return [total, str];
+}
+;
+var _a = combineItems(3, 'Happy', 2, 1, ' New Year'), total = _a[0], str = _a[1];
+console.log({ total: total });
+console.log({ str: str });
+// Example 8 TypeScript Function Overloading
+// Use function overloading to define multiple signatures for a single function to ensure type safety.
+// Ex: 1
+function Overloading(a, b) {
+    if (typeof a === 'number' && typeof b === 'number') {
+        return a + b;
+    }
+    else if (typeof a === 'string' && typeof b === 'string') {
+        return a + b;
+    }
+    ;
+    throw new Error("Invalid Arguments");
+}
+;
+console.log(Overloading(16, 4)); // Ouput: 20
+console.log(Overloading('Hello', 'Typscript')); // Output: Typescript
+// Method overloading
+// Ex: 2
+var Counter = /** @class */ (function () {
+    function Counter() {
+        this.current = 0;
+    }
+    Counter.prototype.count = function (target) {
+        if (target) {
+            var values = [];
+            for (var start = this.current; start <= target; start++) {
+                values.push(start);
+            }
+            this.current = target;
+            return values;
+        }
+        return ++this.current;
+    };
+    return Counter;
+}());
+;
+var counter = new Counter();
+console.log(counter.count());
+console.log(counter.count(5));
