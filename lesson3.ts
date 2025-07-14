@@ -13,6 +13,8 @@ let employee: {
     jobTitle: 'Web Developer',
  }
 
+ 
+
  console.log(employee)
 
 //  The Object type, however, describes functionality that is available on all objects.
